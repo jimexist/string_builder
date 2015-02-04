@@ -8,9 +8,5 @@ int main(int argc, char *argv[]) {
         printf("string builder is now %s, length %zu, capacity %zu\n", 
             get_str(sb), length(sb), capacity(sb));
     }
-    append_c(sb, 'x');
-    printf("string builder is now %s, length %zu, capacity %zu\n", 
-        get_str(sb), length(sb), capacity(sb));
-    free_string_builder(sb);
     return 0;
 }
