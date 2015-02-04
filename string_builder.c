@@ -52,7 +52,10 @@ void append_ui(SB *sb, unsigned int ui) {
 }
 
 void append_c(SB *sb, char c) {
-    append(sb, &c);
+    char buf[2];
+    buf[0] = c;
+    buf[1] = '\0';
+    append(sb, buf);
 }
 
 void free_string_builder(SB *sb) {
