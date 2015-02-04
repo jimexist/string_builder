@@ -5,7 +5,8 @@ int main(int argc, char *argv[]) {
     printf("length %zu\n", length(sb));
     for (int i=1; i<argc; ++i) {
         append(sb, argv[i]);
-        printf("string builder is now %s, length %zu\n", get_str(sb), length(sb));
+        printf("string builder is now %s, length %zu, capacity %zu\n", 
+            get_str(sb), length(sb), capacity(sb));
     }
     free_string_builder(sb);
     return 0;
