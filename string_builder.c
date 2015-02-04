@@ -40,13 +40,13 @@ void append(SB *sb, const char *str) {
 }
 
 void append_i(SB *sb, int i) {
-    char buf[11];
+    char buf[12];
     sprintf(buf, "%d", i);
     append(sb, buf);
 }
 
 void append_ui(SB *sb, unsigned int ui) {
-    char buf[11];
+    char buf[12];
     sprintf(buf, "%u", ui);
     append(sb, buf);
 }
