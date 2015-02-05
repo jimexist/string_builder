@@ -17,6 +17,8 @@ void append_ui(SB *sb, unsigned int ui);
 void append_c(SB *sb, char c);
 size_t length(SB *sb);
 size_t capacity(SB *sb);
-char *get_str(SB *sb);
+
+/* warning, user must free the returned array */
+char *get_str_copy(SB *sb);
 
 #endif

@@ -2,11 +2,18 @@
 
 int main(int argc, char *argv[]) {
     SB *sb = new_string_builder();
-    printf("length %zu\n", length(sb));
-    for (int i=1; i<argc; ++i) {
+    int i;
+    char *copy = get_str_copy(sb);
+    printf("string builder is now '%s', length %zu, capacity %zu\n", 
+        copy, length(sb), capacity(sb));
+    free(copy);
+    
+    for (i=1; i<argc; ++i) {
         append(sb, argv[i]);
-        printf("string builder is now %s, length %zu, capacity %zu\n", 
-            get_str(sb), length(sb), capacity(sb));
+        copy = get_str_copy(sb);
+        printf("string builder is now '%s', length %zu, capacity %zu\n", 
+            copy, length(sb), capacity(sb));
+        free(copy);
     }
     return 0;
 }

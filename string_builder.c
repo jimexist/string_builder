@@ -7,11 +7,12 @@ struct string_builder {
 };
 
 static void resize(SB *sb, size_t new_capacity) {
-    if (new_capacity < sb->size) {
-        new_capacity = sb->size;
+    if (new_capacity < sb->size + 1) {
+        new_capacity = sb->size + 1;
     }
     sb->capacity = new_capacity;
-    sb->str = (char *) realloc(sb->str, sizeof(char) * sb->capacity); 
+    sb->str = (char *) realloc(sb->str, sizeof(char) * sb->capacity);
+    sb->str[sb->size] = '\0';
     assert(sb && "failed to realloc");
 }
 
@@ -28,9 +29,9 @@ SB *new_string_builder() {
 void append(SB *sb, const char *str) {
     const size_t str_len = strlen(str);
     const size_t new_size = str_len + sb->size;
-    if (new_size > sb->capacity) {
+    if (new_size + 1 > sb->capacity) {
         size_t new_capacity = sb->capacity;
-        while (new_capacity < new_size) {
+        while (new_capacity < new_size + 1) {
             new_capacity <<= 1;
         }
         resize(sb, new_capacity);
@@ -40,13 +41,13 @@ void append(SB *sb, const char *str) {
 }
 
 void append_i(SB *sb, int i) {
-    char buf[12];
+    char buf[13];
     sprintf(buf, "%d", i);
     append(sb, buf);
 }
 
 void append_ui(SB *sb, unsigned int ui) {
-    char buf[12];
+    char buf[13];
     sprintf(buf, "%u", ui);
     append(sb, buf);
 }
@@ -71,6 +72,7 @@ size_t capacity(SB *sb) {
     return sb->capacity;
 }
 
-char *get_str(SB *sb) {
-    return sb->str;
+char *get_str_copy(SB *sb) {
+    char *copy = (char *) malloc(sizeof(char) * (sb->size + 1));
+    return strcpy(copy, sb->str);
 }
