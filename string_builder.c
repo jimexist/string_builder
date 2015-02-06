@@ -36,7 +36,7 @@ void append(SB *sb, const char *str) {
         }
         resize(sb, new_capacity);
     }
-    strcat(sb->str, str);
+    strncat(sb->str, str, str_len);
     sb->size = new_size;
 }
 
@@ -74,5 +74,5 @@ size_t capacity(SB *sb) {
 
 char *get_str_copy(SB *sb) {
     char *copy = (char *) malloc(sizeof(char) * (sb->size + 1));
-    return strcpy(copy, sb->str);
+    return strncpy(copy, sb->str, sb->size);
 }
