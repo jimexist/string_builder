@@ -36,7 +36,7 @@ void append(SB *sb, const char *str) {
         }
         resize(sb, new_capacity);
     }
-    strncat(sb->str, str, str_len);
+    strncpy(sb->str + sb->size, str, str_len);
     sb->size = new_size;
 }
 
