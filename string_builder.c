@@ -7,11 +7,11 @@ struct string_builder {
 };
 
 static void resize(SB *sb, size_t new_capacity) {
-    if (new_capacity < sb->size + 1) {
-        new_capacity = sb->size + 1;
+    if (new_capacity < sb->size) {
+        new_capacity = sb->size;
     }
     sb->capacity = new_capacity;
-    sb->str = (char *) realloc(sb->str, sizeof(char) * sb->capacity);
+    sb->str = (char *) realloc(sb->str, sizeof(char) * sb->capacity + 1);
     sb->str[sb->size] = '\0';
     assert(sb && "failed to realloc");
 }
@@ -29,9 +29,9 @@ SB *new_string_builder() {
 void append(SB *sb, const char *str) {
     const size_t str_len = strlen(str);
     const size_t new_size = str_len + sb->size;
-    if (new_size + 1 > sb->capacity) {
+    if (new_size > sb->capacity) {
         size_t new_capacity = sb->capacity;
-        while (new_capacity < new_size + 1) {
+        while (new_capacity < new_size) {
             new_capacity <<= 1;
         }
         resize(sb, new_capacity);
