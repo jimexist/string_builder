@@ -73,6 +73,9 @@ size_t capacity(SB *sb) {
 }
 
 char *get_str_copy(SB *sb) {
-    char *copy = (char *) malloc(sizeof(char) * (sb->size + 1));
+    int size = sizeof(char) * (sb->size + 1);
+    char *copy = (char *) malloc(size);
+    memset(copy, '\0', size);
+    
     return strncpy(copy, sb->str, sb->size);
 }
